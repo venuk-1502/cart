@@ -1,20 +1,41 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Cart Service
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+This service is responsible for Cart Service in  RobotShop e-commerce portal.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+This service is written in NodeJS, Hence need to install NodeJS in the system.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+```
+# yum install nodejs make gcc-c++ -y 
+```
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+Let's now set up the cart application.
+
+As part of operating system standards, we run all the applications and databases as a normal user but not with root user.
+
+So to run the cart service we choose to run as a normal user and that user name should be more relevant to the project. Hence we will use `roboshop` as the username to run the service.
+
+```
+# useradd roboshop
+```
+
+So let's switch to the `roboshop` user and run the following commands.
+
+```
+$ curl -s -L -o /tmp/cart.zip "https://github.com/roboshop-devops-project/cart/archive/main.zip"
+$ cd /home/roboshop
+$ unzip /tmp/cart.zip
+$ mv cart-main cart
+$ cd cart
+$ npm install 
+```
+
+Now, lets set up the service with systemctl.
+
+```
+# mv /home/roboshop/cart/systemd.service /etc/systemd/system/cart.service
+# systemctl daemon-reload
+# systemctl start cart
+# systemctl enable cart
+```
+
+

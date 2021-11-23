@@ -10,6 +10,6 @@ module "application" {
   INSTANCE_TYPE          = var.INSTANCE_TYPE
 }
 
-output "INSTANCE_IDS" {
-  value = module.application.INSTANCE_IDS
-}
+#output "INSTANCE_IDS" {
+#  value = module.application.INSTANCE_IDS
+#}

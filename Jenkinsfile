@@ -27,7 +27,7 @@ pipeline {
 
         sh '''
         cd terraform-mutable
-        make ${ENV}-${ACTION}
+        sudo make ${ENV}-${ACTION}
         '''
       }
     }

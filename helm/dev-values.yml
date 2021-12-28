@@ -1,7 +1,15 @@
+appName: cart
 replicaCount: 1
 image:
   repository: 378784712135.dkr.ecr.us-east-1.amazonaws.com/cart
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
+
+env:
+  name: dev
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
 
 serviceAccount:
   create: true
@@ -14,12 +22,22 @@ service:
   containerPort: 8080
 
 resources:
-   limits:
-     cpu: 100m
-     memory: 256Mi
-   requests:
-     cpu: 100m
-     memory: 256Mi
+  limits:
+    cpu: 100m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
 
-env:
-  name: dev
+configmap:
+  create: true
+  content:
+    REDIS_HOST: redis-master
+    CATALOGUE_HOST: catalogue
+    CATALOGUE_PORT: "80"
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
